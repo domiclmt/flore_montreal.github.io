@@ -1,0 +1,1267 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Montréal pour Flore</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blush:    #f2dede;
+    --blush-d:  #c8959a;
+    --blush-dk: #8a5a5f;
+    --petal:    #f7ece8;
+    --lavender: #e8e4f0;
+    --lavender-d: #9e96bb;
+    --lavender-dk: #5c5480;
+    --sage:     #e4ede6;
+    --sage-d:   #7ea882;
+    --sage-dk:  #3d6642;
+    --sky:      #deeaf5;
+    --sky-d:    #7dadd4;
+    --sky-dk:   #3a6a96;
+    --honey:    #f5e8d0;
+    --honey-d:  #c49a52;
+    --honey-dk: #7a5c22;
+    --mint:     #d8eeea;
+    --mint-d:   #65b5a8;
+    --mint-dk:  #2d6e65;
+    --ink:      #2c2236;
+    --ink-2:    #5a4e6a;
+    --ink-3:    #9080a0;
+    --cream:    #fdf8f5;
+    --white:    #ffffff;
+    --border:   #ece4dd;
+    --border-lt:#f5f0ec;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.6;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--cream); }
+  ::-webkit-scrollbar-thumb { background: var(--blush-d); border-radius: 2px; }
+
+  /* HERO */
+  .hero {
+    height: 100vh;
+    min-height: 620px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background: url('images/hero_bg.jpg') center 50% / cover no-repeat;
+    animation: slowzoom 25s ease-in-out infinite alternate;
+  }
+
+  @keyframes slowzoom {
+    from { transform: scale(1.02); }
+    to   { transform: scale(1.08); }
+  }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom,
+      rgba(20, 10, 30, 0.45) 0%,
+      rgba(20, 10, 30, 0.65) 60%,
+      rgba(20, 10, 30, 0.80) 100%);
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 2rem;
+    animation: fadeUp 1.2s ease both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-label {
+    display: inline-block;
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.55);
+    font-weight: 400;
+    margin-bottom: 1.4rem;
+    animation: fadeUp 1s 0.3s ease both;
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 8vw, 5.5rem);
+    font-weight: 400;
+    color: #fff;
+    line-height: 1.08;
+    letter-spacing: -0.5px;
+    animation: fadeUp 1s 0.45s ease both;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    display: block;
+    color: rgba(255,220,225,0.92);
+    font-weight: 400;
+  }
+
+  .hero-sub {
+    margin-top: 1.4rem;
+    font-size: 15px;
+    color: rgba(255,255,255,0.55);
+    font-weight: 300;
+    letter-spacing: 0.5px;
+    animation: fadeUp 1s 0.6s ease both;
+  }
+
+  .hero-cta {
+    margin-top: 2.2rem;
+    animation: fadeUp 1s 0.75s ease both;
+  }
+
+  .btn-outline {
+    display: inline-block;
+    padding: 10px 28px;
+    border: 1px solid rgba(255,255,255,0.35);
+    border-radius: 40px;
+    color: rgba(255,255,255,0.8);
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.25s;
+    background: rgba(255,255,255,0.06);
+  }
+
+  .btn-outline:hover {
+    background: rgba(255,255,255,0.14);
+    color: white;
+    border-color: rgba(255,255,255,0.6);
+  }
+
+  /* STICKY NAV */
+  .sticky-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(253,248,245,0.96);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-lt);
+    padding: 0 1.5rem;
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .sticky-nav::-webkit-scrollbar { display: none; }
+
+  .snav-btn {
+    white-space: nowrap;
+    padding: 14px 20px;
+    border: none;
+    border-bottom: 2px solid transparent;
+    background: none;
+    color: var(--ink-3);
+    font-size: 12px;
+    font-family: 'Inter', sans-serif;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+  }
+
+  .snav-btn:hover { color: var(--ink); }
+  .snav-btn.active { color: var(--blush-dk); border-bottom-color: var(--blush-d); font-weight: 500; }
+
+  /* SECTIONS */
+  .section-wrap { max-width: 1000px; margin: 0 auto; padding: 5rem 2rem; }
+
+  .section-header { margin-bottom: 3.5rem; }
+
+  .eyebrow {
+    display: block;
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--blush-dk);
+    margin-bottom: 0.7rem;
+    font-weight: 500;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.9rem, 4vw, 2.7rem);
+    font-weight: 400;
+    color: var(--ink);
+    line-height: 1.2;
+  }
+
+  .section-title em { font-style: italic; color: var(--blush-dk); }
+
+  .section-sub {
+    margin-top: 0.6rem;
+    font-size: 14px;
+    color: var(--ink-3);
+    font-weight: 300;
+  }
+
+  /* INTRO BAND */
+  .intro-band {
+    background: var(--white);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .intro-inner {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+  }
+
+  .intro-stat {
+    padding: 0.5rem 2rem;
+    text-align: center;
+    border-right: 1px solid var(--border);
+  }
+
+  .intro-stat:last-child { border-right: none; }
+
+  .intro-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.4rem;
+    font-weight: 400;
+    color: var(--ink);
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+
+  .intro-label {
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    font-weight: 400;
+  }
+
+  /* MAP */
+  .map-band {
+    background: var(--petal);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 5rem 2rem;
+  }
+
+  .map-inner { max-width: 1000px; margin: 0 auto; }
+
+  .map-container {
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: #f5ede6;
+  }
+
+  #city-map { width: 100%; display: block; }
+
+  .map-pin { cursor: pointer; transition: transform 0.2s; transform-origin: center; }
+  .map-pin:hover { transform: scale(1.2); }
+
+  /* QUARTIERS */
+  .quartiers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .q-card {
+    background: var(--white);
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    transition: transform 0.3s, box-shadow 0.3s;
+    opacity: 0;
+    animation: cardIn 0.5s ease forwards;
+  }
+
+  .q-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 36px rgba(44,34,54,0.08);
+  }
+
+  @keyframes cardIn {
+    to { opacity: 1; }
+  }
+
+  .q-card:nth-child(1) { animation-delay: 0.05s; }
+  .q-card:nth-child(2) { animation-delay: 0.10s; }
+  .q-card:nth-child(3) { animation-delay: 0.15s; }
+  .q-card:nth-child(4) { animation-delay: 0.20s; }
+  .q-card:nth-child(5) { animation-delay: 0.25s; }
+  .q-card:nth-child(6) { animation-delay: 0.30s; }
+  .q-card:nth-child(7) { animation-delay: 0.35s; }
+  .q-card:nth-child(8) { animation-delay: 0.40s; }
+  .q-card:nth-child(9) { animation-delay: 0.45s; }
+
+  .q-img {
+    position: relative;
+    height: 188px;
+    overflow: hidden;
+    background: var(--blush);
+  }
+
+  .q-img img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+
+  .q-card:hover .q-img img { transform: scale(1.04); }
+
+  .q-img-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, transparent 35%, rgba(20,10,30,0.72) 100%);
+  }
+
+  .q-zone {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: rgba(255,255,255,0.16);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.22);
+    border-radius: 40px;
+    padding: 3px 12px;
+    font-size: 10px;
+    color: rgba(255,255,255,0.85);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .q-emoji {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    font-size: 1.3rem;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+  }
+
+  .q-name {
+    position: absolute;
+    bottom: 1rem;
+    left: 1.1rem;
+    right: 1rem;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-weight: 500;
+    color: white;
+    line-height: 1.2;
+  }
+
+  .q-body { padding: 1.25rem 1.3rem 1.4rem; }
+
+  .q-desc {
+    font-size: 13px;
+    line-height: 1.78;
+    color: var(--ink-2);
+    margin-bottom: 1rem;
+  }
+
+  .q-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-bottom: 1rem;
+  }
+
+  .pill {
+    padding: 3px 11px;
+    border-radius: 40px;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.3px;
+  }
+
+  .p-blush   { background: var(--blush);   color: var(--blush-dk);   border: 1px solid var(--blush-d); }
+  .p-lavender{ background: var(--lavender); color: var(--lavender-dk);border: 1px solid var(--lavender-d); }
+  .p-sage    { background: var(--sage);    color: var(--sage-dk);    border: 1px solid var(--sage-d); }
+  .p-sky     { background: var(--sky);     color: var(--sky-dk);     border: 1px solid var(--sky-d); }
+  .p-honey   { background: var(--honey);   color: var(--honey-dk);   border: 1px solid var(--honey-d); }
+  .p-mint    { background: var(--mint);    color: var(--mint-dk);    border: 1px solid var(--mint-d); }
+
+  .q-tip {
+    background: var(--honey);
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-size: 12.5px;
+    color: var(--honey-dk);
+    line-height: 1.6;
+  }
+
+  .q-tip strong { font-weight: 500; }
+
+  /* DIVIDER */
+  .divider {
+    height: 1px;
+    background: var(--border);
+    max-width: 120px;
+    margin: 0 auto;
+  }
+
+  .divider-section {
+    padding: 3rem 0;
+    text-align: center;
+  }
+
+  .divider-dot {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--border);
+    font-size: 1.5rem;
+    letter-spacing: 6px;
+  }
+
+  /* RESTAURANTS */
+  .resto-band {
+    background: var(--white);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 5rem 2rem;
+  }
+
+  .resto-inner { max-width: 1000px; margin: 0 auto; }
+
+  .resto-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.1rem;
+  }
+
+  .r-card {
+    background: var(--cream);
+    border-radius: 14px;
+    padding: 1.4rem;
+    border: 1px solid var(--border);
+    transition: transform 0.25s, box-shadow 0.25s;
+    position: relative;
+  }
+
+  .r-card:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(44,34,54,0.07); }
+
+  .r-top-tag {
+    display: inline-block;
+    padding: 3px 12px;
+    border-radius: 40px;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-bottom: 1rem;
+  }
+
+  .r-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 2px;
+    line-height: 1.2;
+  }
+
+  .r-type {
+    font-size: 11px;
+    color: var(--ink-3);
+    letter-spacing: 0.5px;
+    margin-bottom: 0.85rem;
+  }
+
+  .r-desc {
+    font-size: 13px;
+    color: var(--ink-2);
+    line-height: 1.72;
+  }
+
+  /* PRACTICAL */
+  .practical-band {
+    background: var(--cream);
+    border-bottom: 1px solid var(--border);
+    padding: 5rem 2rem;
+  }
+
+  .practical-inner { max-width: 1000px; margin: 0 auto; }
+
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+
+  .info-card {
+    background: var(--white);
+    border-radius: 14px;
+    padding: 1.4rem 1.3rem;
+    border: 1px solid var(--border);
+  }
+
+  .info-icon {
+    font-size: 1.5rem;
+    margin-bottom: 0.8rem;
+    display: block;
+  }
+
+  .info-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 0.4rem;
+  }
+
+  .info-text {
+    font-size: 12.5px;
+    color: var(--ink-2);
+    line-height: 1.65;
+  }
+
+  /* FOOTER */
+  .footer {
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    padding: 6rem 2rem 5rem;
+  }
+
+  .footer-bg {
+    position: absolute;
+    inset: 0;
+    background: url('https://images.unsplash.com/photo-1597586124394-fbd6ef9a3f80?w=1600&q=85') center 70% / cover no-repeat;
+  }
+
+  .footer-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(20,10,30,0.68);
+  }
+
+  .footer-content {
+    position: relative;
+    z-index: 2;
+  }
+
+  .footer-rule {
+    width: 40px;
+    height: 1px;
+    background: rgba(255,255,255,0.3);
+    margin: 0 auto 2rem;
+  }
+
+  .footer h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 400;
+    color: white;
+    font-style: italic;
+    margin-bottom: 0.9rem;
+  }
+
+  .footer p {
+    color: rgba(255,255,255,0.5);
+    font-size: 13px;
+    font-weight: 300;
+    letter-spacing: 1px;
+  }
+
+  /* GALERIE */
+  .q-img { cursor: pointer; }
+
+  .q-gallery {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 3px;
+    background: var(--border);
+    overflow: hidden;
+  }
+
+  .gallery-thumb {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    background: var(--blush);
+  }
+
+  .gallery-thumb:first-child {
+    grid-row: span 2;
+    aspect-ratio: 3/4;
+  }
+
+  .gallery-thumb:not(:first-child) {
+    aspect-ratio: 4/3;
+  }
+
+  .gallery-thumb img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+    display: block;
+  }
+
+  .gallery-thumb:hover img { transform: scale(1.06); }
+
+  .gallery-more-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(20,10,30,0.52);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-family: 'Playfair Display', serif;
+    font-size: 15px;
+    font-style: italic;
+  }
+
+  /* LIGHTBOX */
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(12,6,20,0.95);
+    z-index: 2000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+  }
+
+  .lightbox.open { display: flex; }
+
+  .lb-inner {
+    position: relative;
+    max-width: 860px;
+    width: 100%;
+  }
+
+  .lb-img-wrap {
+    border-radius: 10px;
+    overflow: hidden;
+    background: #1a0a24;
+    aspect-ratio: 16/10;
+  }
+
+  .lb-img-wrap img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: opacity 0.2s;
+  }
+
+  .lb-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 0.9rem;
+  }
+
+  .lb-caption {
+    color: rgba(255,255,255,0.5);
+    font-size: 12px;
+    font-weight: 300;
+    font-style: italic;
+  }
+
+  .lb-counter {
+    color: rgba(255,255,255,0.35);
+    font-size: 11px;
+    letter-spacing: 1px;
+  }
+
+  .lb-close {
+    position: absolute;
+    top: -3.2rem;
+    right: 0;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.7);
+    font-size: 16px;
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+  }
+
+  .lb-close:hover { background: rgba(255,255,255,0.15); color: white; }
+
+  .lb-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-60%);
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+    color: rgba(255,255,255,0.8);
+    font-size: 18px;
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+  }
+
+  .lb-nav:hover { background: rgba(255,255,255,0.18); color: white; }
+  .lb-prev { right: calc(100% + 0.8rem); }
+  .lb-next { left: calc(100% + 0.8rem); }
+
+  .lb-dots {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 0.7rem;
+  }
+
+  .lb-dot {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+    cursor: pointer;
+    border: none;
+    transition: background 0.2s, transform 0.2s;
+  }
+
+  .lb-dot.active {
+    background: rgba(255,255,255,0.75);
+    transform: scale(1.3);
+  }
+
+    /* RESPONSIVE */
+  @media (max-width: 640px) {
+    .quartiers-grid, .resto-grid { grid-template-columns: 1fr; }
+    .info-grid { grid-template-columns: 1fr 1fr; }
+    .intro-inner { grid-template-columns: 1fr; }
+    .intro-stat { border-right: none; border-bottom: 1px solid var(--border); padding: 1.2rem; }
+    .intro-stat:last-child { border-bottom: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO-->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <span class="hero-label">Guide de voyage · Juin 2025</span>
+    <h1>
+      Montréal
+      <em>pour toi, Flore</em>
+    </h1>
+    <p class="hero-sub">Une ville pleine de vie, de saveurs et de surprises t'attend</p>
+    <div class="hero-cta">
+      <a class="btn-outline" href="#map-section">Découvrir</a>
+    </div>
+  </div>
+</section>
+
+<!-- STICKY NAV -->
+<nav class="sticky-nav" id="sticky-nav">
+  <button class="snav-btn active" onclick="scrollToSection('map-section')">Carte</button>
+  <button class="snav-btn" onclick="scrollToSection('quartiers-section')">Quartiers</button>
+  <button class="snav-btn" onclick="scrollToSection('resto-section')">Restaurants</button>
+  <button class="snav-btn" onclick="scrollToSection('practical-section')">Infos pratiques</button>
+</nav>
+
+<!-- INTRO STATS -->
+<div class="intro-band">
+  <div class="intro-inner">
+    <div class="intro-stat">
+      <div class="intro-num">9</div>
+      <div class="intro-label">Quartiers sélectionnés</div>
+    </div>
+    <div class="intro-stat">
+      <div class="intro-num">6</div>
+      <div class="intro-label">Restaurants coups de cœur</div>
+    </div>
+    <div class="intro-stat">
+      <div class="intro-num">20–26°</div>
+      <div class="intro-label">Météo idéale en juin</div>
+    </div>
+  </div>
+</div>
+
+<!-- MAP -->
+<div class="map-band" id="map-section">
+  <div class="map-inner">
+    <div class="section-header">
+      <span class="eyebrow">Orientation</span>
+      <h2 class="section-title">Carte <em>interactive</em></h2>
+      <p class="section-sub">Clique sur un quartier pour le découvrir</p>
+    </div>
+    <div class="map-container">
+      <svg id="city-map" viewBox="0 0 900 380" xmlns="http://www.w3.org/2000/svg">
+        <rect width="900" height="380" fill="#f0e8e2"/>
+
+        <!-- Fleuve -->
+        <path d="M 0 318 Q 200 306 450 313 Q 650 320 900 308 L 900 380 L 0 380 Z" fill="#c5dff0" opacity="0.85"/>
+        <path d="M 0 330 Q 200 318 450 325 Q 650 332 900 320" stroke="#a8ccdf" stroke-width="1.5" fill="none" opacity="0.5"/>
+
+        <!-- Canal Lachine -->
+        <path d="M 30 293 Q 120 278 220 283 Q 310 288 380 298" stroke="#96c4e0" stroke-width="5" fill="none" opacity="0.7" stroke-linecap="round"/>
+
+        <!-- Mont-Royal -->
+        <ellipse cx="238" cy="138" rx="108" ry="63" fill="#d8eecc" opacity="0.5"/>
+        <ellipse cx="238" cy="120" rx="70" ry="46" fill="#cce8b8" opacity="0.4"/>
+
+        <!-- Rues -->
+        <g stroke="#e0d5cc" stroke-width="1" opacity="0.7">
+          <line x1="0" y1="220" x2="900" y2="220"/>
+          <line x1="0" y1="260" x2="900" y2="260"/>
+          <line x1="0" y1="180" x2="900" y2="180"/>
+          <line x1="0" y1="140" x2="620" y2="140"/>
+          <line x1="180" y1="80" x2="180" y2="318"/>
+          <line x1="320" y1="80" x2="320" y2="318"/>
+          <line x1="460" y1="80" x2="460" y2="318"/>
+          <line x1="580" y1="80" x2="580" y2="318"/>
+          <line x1="700" y1="80" x2="700" y2="318"/>
+          <line x1="820" y1="80" x2="820" y2="318"/>
+        </g>
+
+        <!-- Labels contexte -->
+        <text x="238" y="168" font-family="'Inter',sans-serif" font-size="10" fill="#6a8a60" opacity="0.65" text-anchor="middle" font-weight="400">Parc Mont-Royal</text>
+        <text x="130" y="272" font-family="'Inter',sans-serif" font-size="9" fill="#4870a0" opacity="0.5" text-anchor="middle">Canal Lachine</text>
+        <text x="450" y="348" font-family="'Inter',sans-serif" font-size="9" fill="#3a72a0" opacity="0.5" text-anchor="middle" font-style="italic">Fleuve Saint-Laurent</text>
+
+        <!-- Pins -->
+        <g class="map-pin" data-idx="0" onclick="scrollToCard(0)" transform="translate(575,263)">
+          <circle r="16" fill="#fce8ee" stroke="#c8959a" stroke-width="1.5"/>
+          <text y="5" text-anchor="middle" font-size="14">⚜️</text>
+        </g>
+        <g class="map-pin" data-idx="1" onclick="scrollToCard(1)" transform="translate(238,116)">
+          <circle r="16" fill="#e4ede6" stroke="#7ea882" stroke-width="1.5"/>
+          <text y="5" text-anchor="middle" font-size="14">🌿</text>
+        </g>
+        <g class="map-pin" data-idx="2" onclick="scrollToCard(2)" transform="translate(320,98)">
+          <circle r="16" fill="#f5e8d0" stroke="#c49a52" stroke-width="1.5"/>
+          <text y="5" text-anchor="middle" font-size="14">🍅</text>
+        </g>
+        <g class="map-pin" data-idx="3" onclick="scrollToCard(3)" transform="translate(140,276)">
+          <circle r="16" fill="#e8e4f0" stroke="#9e96bb" stroke-width="1.5"/>
+          <text y="5" text-anchor="middle" font-size="14">☕</text>
+        </g>
+        <g class="map-pin" data-idx="4" onclick="scrollToCard(4)" transform="translate(400,153)">
+          <circle r="16" fill="#fce8ee" stroke="#c8959a" stroke-width="1.5"/>
+          <text y="5" text-anchor="middle" font-size="14">🎨</text>
+        </g>
+        <g class="map-pin" data-idx="5" onclick="scrollToCard(5)" transform="translate(510,208)">
+          <circle r="16" fill="#deeaf5" stroke="#7dadd4" stroke-width="1.5"/>
+          <text y="5" text-anchor="middle" font-size="14">🛍️</text>
+        </g>
+        <g class="map-pin" data-idx="6" onclick="scrollToCard(6)" transform="translate(610,213)">
+          <circle r="16" fill="#e8e4f0" stroke="#9e96bb" stroke-width="1.5"/>
+          <text y="5" text-anchor="middle" font-size="14">🌐</text>
+        </g>
+        <g class="map-pin" data-idx="7" onclick="scrollToCard(7)" transform="translate(205,288)">
+          <circle r="16" fill="#deeaf5" stroke="#7dadd4" stroke-width="1.5"/>
+          <text y="5" text-anchor="middle" font-size="14">🚴</text>
+        </g>
+        <g class="map-pin" data-idx="8" onclick="scrollToCard(8)" transform="translate(300,276)">
+          <circle r="16" fill="#d8eeea" stroke="#65b5a8" stroke-width="1.5"/>
+          <text y="5" text-anchor="middle" font-size="14">🧺</text>
+        </g>
+
+        <!-- Légende -->
+        <rect x="702" y="14" width="184" height="204" rx="12" fill="white" opacity="0.92" stroke="#e8ddd5" stroke-width="0.5"/>
+        <text x="794" y="35" text-anchor="middle" font-family="'Inter',sans-serif" font-size="10" font-weight="500" fill="#8a5a5f" letter-spacing="1">QUARTIERS</text>
+        <line x1="718" y1="43" x2="874" y2="43" stroke="#ece4dd" stroke-width="0.5"/>
+        <text x="718" y="61"  font-family="'Inter',sans-serif" font-size="9.5" fill="#5a4e6a">⚜️  Vieux-Montréal</text>
+        <text x="718" y="79"  font-family="'Inter',sans-serif" font-size="9.5" fill="#5a4e6a">🌿  Mont-Royal</text>
+        <text x="718" y="97"  font-family="'Inter',sans-serif" font-size="9.5" fill="#5a4e6a">🍅  Little Italy · Jean-Talon</text>
+        <text x="718" y="115" font-family="'Inter',sans-serif" font-size="9.5" fill="#5a4e6a">☕  Wellington &amp; Verdun</text>
+        <text x="718" y="133" font-family="'Inter',sans-serif" font-size="9.5" fill="#5a4e6a">🎨  Plateau · Mile End</text>
+        <text x="718" y="151" font-family="'Inter',sans-serif" font-size="9.5" fill="#5a4e6a">🛍️  Rue Sainte-Catherine</text>
+        <text x="718" y="169" font-family="'Inter',sans-serif" font-size="9.5" fill="#5a4e6a">🌐  Ville souterraine</text>
+        <text x="718" y="187" font-family="'Inter',sans-serif" font-size="9.5" fill="#5a4e6a">🚴  Canal Lachine</text>
+        <text x="718" y="205" font-family="'Inter',sans-serif" font-size="9.5" fill="#5a4e6a">🧺  Marché Atwater</text>
+      </svg>
+    </div>
+  </div>
+</div>
+
+<!-- QUARTIERS -->
+<div id="quartiers-section">
+  <div class="section-wrap">
+    <div class="section-header">
+      <span class="eyebrow">Explorer</span>
+      <h2 class="section-title">Les <em>quartiers</em> à découvrir</h2>
+      <p class="section-sub">9 endroits inoubliables sélectionnés pour toi</p>
+    </div>
+    <div class="quartiers-grid" id="quartiers-grid"></div>
+  </div>
+</div>
+
+<!-- RESTAURANTS -->
+<div class="resto-band" id="resto-section">
+  <div class="resto-inner">
+    <div class="section-header">
+      <span class="eyebrow">Gastronomie</span>
+      <h2 class="section-title">Coups de <em>cœur</em> gourmands</h2>
+      <p class="section-sub">Les meilleures adresses pour bien manger à Montréal</p>
+    </div>
+    <div class="resto-grid">
+
+      <div class="r-card">
+        <div class="r-top-tag p-blush">Brunch & soir</div>
+        <div class="r-name">BarBara</div>
+        <div class="r-type">Café · Bistro toute la journée</div>
+        <p class="r-desc">De 8h à 1h du matin, ce café-bistro Notre-Dame fait tout maison : pâtes, focaccia, pastries et spéciaux de saison. Ambiance chaleureuse et branchée.</p>
+      </div>
+
+      <div class="r-card">
+        <div class="r-top-tag p-honey">Expérience unique</div>
+        <div class="r-name">Joe Beef</div>
+        <div class="r-type">Gastronomique · Français-Québécois</div>
+        <p class="r-desc">Une institution montréalaise parmi les meilleures au monde. Viandes et fruits de mer d'exception, carte des vins impressionnante. Les spaghettis au homard sont légendaires.</p>
+      </div>
+
+      <div class="r-card">
+        <div class="r-top-tag p-lavender">Top mondial 2025</div>
+        <div class="r-name">Mon Lapin</div>
+        <div class="r-type">Créatif · Vins naturels</div>
+        <p class="r-desc">Plats joueurs et précis, carte des vins naturels de sommelier, service aux petits soins. Classé parmi les meilleurs restaurants du monde en 2025.</p>
+      </div>
+
+      <div class="r-card">
+        <div class="r-top-tag p-sage">Institution mythique</div>
+        <div class="r-name">Toqué !</div>
+        <div class="r-type">Haute gastronomie · Terroir québécois</div>
+        <p class="r-desc">La référence absolue du fine dining à Montréal. Chef Normand Laprise, produits ultra-locaux, techniques françaises impeccables. Classe sans prétention.</p>
+      </div>
+
+      <div class="r-card">
+        <div class="r-top-tag p-blush">Fun & décontracté</div>
+        <div class="r-name">Tri Express</div>
+        <div class="r-type">Japonais · Sushis abordables</div>
+        <p class="r-desc">Le sushi festif et abordable du Plateau, avec un chef flamboyant et un décor bric-à-brac adorable. Par beau temps, prends ton repas au Parc Laurier à deux pas.</p>
+      </div>
+
+      <div class="r-card">
+        <div class="r-top-tag p-mint">Coup de cœur 2025</div>
+        <div class="r-name">Pasta Pooks</div>
+        <div class="r-type">Italien · Pâtes fraîches maison</div>
+        <p class="r-desc">Pâtes fraîches artisanales d'une précision remarquable — casoncelli, ragù lentement mijoté, tout fait sur place. Une petite adresse qui fait sensation.</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- INFOS PRATIQUES -->
+<div class="practical-band" id="practical-section">
+  <div class="practical-inner">
+    <div class="section-header">
+      <span class="eyebrow">Avant de partir</span>
+      <h2 class="section-title">Infos <em>pratiques</em></h2>
+      <p class="section-sub">Tout ce qu'il faut savoir pour profiter au max</p>
+    </div>
+    <div class="info-grid">
+      <div class="info-card">
+        <span class="info-icon">🌤️</span>
+        <div class="info-title">Météo de juin</div>
+        <p class="info-text">20–26°C en journée, légèrement frais le soir. Prévoir une petite veste. Journées longues et ensoleillées !</p>
+      </div>
+      <div class="info-card">
+        <span class="info-icon">🚇</span>
+        <div class="info-title">Transports</div>
+        <p class="info-text">Le métro STM couvre très bien la ville. Carte Opus rechargeable. Taxis et Uber disponibles.</p>
+      </div>
+      <div class="info-card">
+        <span class="info-icon">🚴</span>
+        <div class="info-title">Vélos BIXI</div>
+        <p class="info-text">Le vélo en libre-service BIXI est partout. Idéal pour le Canal de Lachine et les balades dans les quartiers.</p>
+      </div>
+      <div class="info-card">
+        <span class="info-icon">🍁</span>
+        <div class="info-title">Monnaie</div>
+        <p class="info-text">Dollar canadien (CAD). Cartes acceptées partout. La taxe de 15% s'ajoute aux prix affichés.</p>
+      </div>
+      <div class="info-card">
+        <span class="info-icon">🗣️</span>
+        <div class="info-title">Langue</div>
+        <p class="info-text">Français en priorité — ton français te servira partout. L'anglais est aussi très répandu dans les commerces.</p>
+      </div>
+      <div class="info-card">
+        <span class="info-icon">🍽️</span>
+        <div class="info-title">À goûter</div>
+        <p class="info-text">Poutine, bagels au feu de bois, smoked meat, sirop d'érable, fromages du Québec et bières artisanales.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-bg"></div>
+  <div class="footer-overlay"></div>
+  <div class="footer-content">
+    <div class="footer-rule"></div>
+    <h2>Montréal t'attend, Flore</h2>
+    <p>Prépare-toi pour une aventure pleine de saveurs, de couleurs et de découvertes</p>
+  </div>
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <div class="lb-inner">
+    <button class="lb-close" onclick="closeLightbox()">✕</button>
+    <button class="lb-nav lb-prev" onclick="lbNav(-1)">&#8592;</button>
+    <button class="lb-nav lb-next" onclick="lbNav(1)">&#8594;</button>
+    <div class="lb-img-wrap">
+      <img id="lb-img" src="" alt=""/>
+    </div>
+    <div class="lb-bar">
+      <span class="lb-caption" id="lb-caption"></span>
+      <span class="lb-counter" id="lb-counter"></span>
+    </div>
+    <div class="lb-dots" id="lb-dots"></div>
+  </div>
+</div>
+
+<script>
+const spots = [
+  {
+    name: "Vieux-Montréal", zone: "Quartier historique", emoji: "⚜️",
+    photos: [
+      {src:"images/basilic_notre_dame.jpg", cap:"Basilique Notre-Dame de Montréal"},
+      {src:"images/place_jacque_cartier.jpg", cap:"Place Jacques-Cartier"},
+      {src:"images/vieux_port.jpg", cap:"Vieux-Port"}
+    ],
+    desc: "Le cœur battant de l'histoire montréalaise. Les rues pavées te transportent dans une autre époque, entre façades du XIXe siècle et terrasses animées. La Basilique Notre-Dame éblouit avec ses vitraux bleu nuit et ses dorures. La rue Saint-Paul, la plus ancienne de la ville, regorge de galeries et boutiques artisanales. Le Vieux-Port offre une promenade magnifique au bord du fleuve Saint-Laurent.",
+    pills: [{t:"Basilique Notre-Dame",c:"p-blush"},{t:"Rue Saint-Paul",c:"p-honey"},{t:"Place Jacques-Cartier",c:"p-lavender"},{t:"Vieux-Port",c:"p-sky"}],
+    tip: "<strong>Bon à savoir :</strong> La basilique propose le spectacle nocturne AURA — une expérience lumineuse magique à l'intérieur. Réserve à l'avance !"
+  },
+  {
+    name: "Mont-Royal", zone: "Parc & Belvédère", emoji: "🌿",
+    photos: [
+      {src:"images/belvedere_kondiaronk.jpg", cap:"Vue panoramique  Belvédère Kondiaronk"},
+      {src:"images/vue_mont_royal.jpg", cap:"Chalet du Mont-Royal"},
+      {src:"images/mont_royal_lac_castor.jpg", cap:"Parc en automne"}
+    ],
+    desc: "Le poumon vert de Montréal, dessiné par Frederick Law Olmsted (le même que Central Park !). Du Belvédère Kondiaronk, la vue panoramique sur les gratte-ciels est époustouflante. Le Lac aux Castors est charmant, des tamias et écureuils viennent souvent à ta rencontre.",
+    pills: [{t:"Vue panoramique",c:"p-sage"},{t:"Lac aux Castors",c:"p-sky"},{t:"Escaliers historiques",c:"p-honey"},{t:"Faune urbaine",c:"p-mint"}],
+    tip: "<strong>Conseil :</strong> Arrive au Belvédère vers le coucher du soleil — la vue sur Montréal illuminée est simplement magique."
+  },
+  {
+    name: "Little Italy & Jean-Talon", zone: "Quartier vivant", emoji: "🍅",
+    photos: [
+      {src:"images/marché_jen_talon.jpg", cap:"Étalages colorés du marché"},
+      {src:"images/montreal_little_italy.avif", cap:"little Italy"},
+      {src:"images/cafe_petite_italy.jpg", cap:"Ambiance marché extérieur"}
+    ],
+    desc: "Le Marché Jean-Talon est le plus grand marché à ciel ouvert d'Amérique du Nord — une explosion de couleurs, parfums et saveurs. Des montagnes de fruits frais, fromages québécois, sirop d'érable artisanal, fleurs... On pourrait y passer des heures.",
+    pills: [{t:"Produits locaux",c:"p-honey"},{t:"Sirop d'érable",c:"p-honey"},{t:"Fromages du Québec",c:"p-sage"},{t:"Ambiance italienne",c:"p-blush"}],
+    tip: "<strong>Astuce :</strong> Viens le samedi matin pour l'ambiance maximale. Métro ligne orange, station Jean-Talon. Prévoir 2h minimum !"
+  },
+  {
+    name: "Wellington & Verdun", zone: "Quartier tendance", emoji: "☕",
+    photos: [
+      {src:"images/verdun_bar.avif", cap:"Terrasse de café"},
+      {src:"images/wellington.jpg", cap:"Rue commerçante animée"},
+      {src:"images/wellington_eglise.jpg", cap:"Bord du fleuve"}
+    ],
+    desc: "La rue Wellington à Verdun est l'une des artères les plus en vogue de Montréal — et pourtant elle garde une âme authentique et non touristique. C'est ici que les Montréalais branchés viennent bruncher, siroter un café de spécialité ou fouiller dans les boutiques indépendantes.",
+    pills: [{t:"Cafés de spécialité",c:"p-honey"},{t:"Boutiques indés",c:"p-lavender"},{t:"Architecture victorienne",c:"p-blush"},{t:"Vibe local",c:"p-mint"}],
+    tip: "<strong>Bon plan :</strong> Combine avec les berges du fleuve à Verdun — magnifiques et très peu connues des touristes. Un secret bien gardé !"
+  },
+  {
+    name: "Plateau & Mile End", zone: "Art & Culture", emoji: "🎨",
+    photos: [
+      {src:"images/devanture.jpeg", cap:"Escaliers colorés du Plateau"},
+      {src:"images/plateau_1.jpeg", cap:"Murales du Mile End"},
+      {src:"images/plateau.jpeg", cap:"Café bohème du quartier"}
+    ],
+    desc: "L'âme artistique de Montréal. Triplex aux escaliers extérieurs colorés, murales géantes, cafés bohèmes et restaurants branchés. Le Mile End est encore plus créatif : c'est là où sont nés Arcade Fire et où Fairmount Bagel cuit ses bagels au feu de bois 24h/24.",
+    pills: [{t:"Murales géantes",c:"p-honey"},{t:"Bagels Fairmount",c:"p-blush"},{t:"Ruelles vertes",c:"p-sage"},{t:"Escaliers colorés",c:"p-lavender"}],
+    tip: "<strong>À faire :</strong> Commande un bagel « all-dressed » chaud sorti du four chez Fairmount Bagel (ouvert 24h !). Une institution absolue."
+  },
+  {
+    name: "Rue Sainte-Catherine", zone: "Shopping & Ambiance", emoji: "🛍️",
+    photos: [
+      {src:"images/sainte_catherine.jpeg", cap:"Rue animée en soirée"},
+      {src:"images/eglise_sainte_cat.jpeg", cap:"Restaurants et terrasses"},
+      {src:"images/fontaine.jpeg", cap:"Centre-ville de Montréal"}
+    ],
+    desc: "La principale artère commerciale de Montréal et l'une des plus longues rues commerçantes d'Amérique du Nord. Grands magasins, boutiques tendance, restaurants du monde entier. L'atmosphère est électrique, surtout le soir et les week-ends.",
+    pills: [{t:"Shopping varié",c:"p-sky"},{t:"Restauration",c:"p-honey"},{t:"Place des Arts",c:"p-lavender"},{t:"Ambiance urbaine",c:"p-blush"}],
+    tip: "<strong>Combine avec :</strong> La Ville Souterraine juste en dessous — idéale si la météo change ou pour une pause fraîche en été."
+  },
+  {
+    name: "Ville Souterraine (RÉSO)", zone: "Réseau souterrain", emoji: "🌐",
+    photos: [
+      {src:"images/centre_c.jpeg", cap:"Galerie marchande souterraine"},
+      {src:"images/galerie.jpeg", cap:"Couloirs climatisés"},
+      {src:"images/plan_souterrain.jpeg", cap:"Centre commercial intérieur"}
+    ],
+    desc: "Le RÉSO est l'un des grands secrets de Montréal — et pourtant c'est le plus grand réseau piétonnier souterrain au monde ! 33 km de corridors climatisés relient le Centre Eaton, la Galerie du Centre, le Complexe Desjardins et 10 stations de métro.",
+    pills: [{t:"33 km souterrains",c:"p-lavender"},{t:"Centre Eaton",c:"p-sky"},{t:"Complexe Desjardins",c:"p-blush"},{t:"Hors météo",c:"p-mint"}],
+    tip: "<strong>Le savoir :</strong> Parfait en cas de pluie ou de chaleur intense. Une carte du RÉSO est disponible gratuitement en ligne."
+  },
+  {
+    name: "Canal de Lachine", zone: "Nature & Balade", emoji: "🚴",
+    photos: [
+      {src:"images/vue_canal.jpg", cap:"Canal de Lachine"},
+      {src:"images/canoe_canal.jpg", cap:"Balade en bord d'eau"},
+      {src:"images/canal_lachine.jpg", cap:"Pique-nique au canal"}
+    ],
+    desc: "L'une des plus belles promenades de Montréal — 14 km longeant le canal historique, entre anciens entrepôts reconvertis et espaces verts. À pied ou à vélo (BIXI disponible), magnifique en toutes saisons.",
+    pills: [{t:"14 km de piste",c:"p-sky"},{t:"Location BIXI",c:"p-mint"},{t:"Bière artisanale",c:"p-honey"},{t:"Écluses historiques",c:"p-honey"}],
+    tip: "<strong>Combo parfait :</strong> Commence au Marché Atwater pour acheter de quoi pique-niquer, puis longe le canal vers l'est sous le soleil !"
+  },
+  {
+    name: "Marché Atwater", zone: "Marché & Saveurs", emoji: "🧺",
+    photos: [
+      {src:"images/marcher_atwater_soir.jpg", cap:"Façade du marché"},
+      {src:"images/marcher.jpg", cap:"Fromagerie artisanale"},
+      {src:"images/atwater_marché.jpg", cap:"Produits du terroir québécois"}
+    ],
+    desc: "Plus intime que Jean-Talon mais tout aussi savoureux. Situé directement au bord du Canal de Lachine, il rayonne d'une atmosphère chaleureuse. À l'intérieur, bouchers artisanaux, fromageries et boulangeries proposent le meilleur du terroir québécois.",
+    pills: [{t:"Fromageries artisanales",c:"p-honey"},{t:"Produits du terroir",c:"p-sage"},{t:"Bord du canal",c:"p-sky"},{t:"Chocolaterie",c:"p-blush"}],
+    tip: "<strong>Idéal :</strong> Combine avec une balade sur le Canal de Lachine. Pique-nique au bord de l'eau garanti avec les produits du marché !"
+  }
+];
+
+let lbPhotos = [];
+let lbIndex = 0;
+
+function openLightbox(photos, idx) {
+  lbPhotos = photos;
+  lbIndex = idx;
+  renderLightbox();
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function lbNav(dir) {
+  lbIndex = (lbIndex + dir + lbPhotos.length) % lbPhotos.length;
+  renderLightbox();
+}
+
+function renderLightbox() {
+  const p = lbPhotos[lbIndex];
+  const img = document.getElementById('lb-img');
+  img.style.opacity = '0';
+  img.src = p.src;
+  img.onload = () => { img.style.opacity = '1'; };
+  document.getElementById('lb-caption').textContent = p.cap;
+  document.getElementById('lb-counter').textContent = (lbIndex+1) + ' / ' + lbPhotos.length;
+  const dots = document.getElementById('lb-dots');
+  dots.innerHTML = lbPhotos.map((_, i) =>
+    `<button class="lb-dot ${i===lbIndex?'active':''}" onclick="lbIndex=${i};renderLightbox()"></button>`
+  ).join('');
+}
+
+document.getElementById('lightbox').addEventListener('click', function(e) {
+  if (e.target === this) closeLightbox();
+});
+
+document.addEventListener('keydown', function(e) {
+  if (!document.getElementById('lightbox').classList.contains('open')) return;
+  if (e.key === 'ArrowLeft') lbNav(-1);
+  if (e.key === 'ArrowRight') lbNav(1);
+  if (e.key === 'Escape') closeLightbox();
+});
+
+function buildGrid() {
+  const grid = document.getElementById('quartiers-grid');
+  spots.forEach((s, i) => {
+    const card = document.createElement('div');
+    card.className = 'q-card';
+    card.id = 'card-' + i;
+
+    const thumbs = s.photos.map((p, pi) => {
+      const isLast = pi === 2;
+      const extra = isLast && s.photos.length > 3
+        ? `<div class="gallery-more-overlay">+${s.photos.length - 3}</div>` : '';
+      return `<div class="gallery-thumb" onclick="openLightbox(spots[${i}].photos,${pi})">
+        <img src="${p.src}" alt="${p.cap}" loading="lazy"/>
+        ${extra}
+      </div>`;
+    }).join('');
+
+    card.innerHTML = `
+      <div class="q-gallery">${thumbs}</div>
+      <div class="q-body">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:0.6rem;">
+          <span style="font-size:1.1rem;">${s.emoji}</span>
+          <div>
+            <div style="font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:500;color:var(--ink);line-height:1.2;">${s.name}</div>
+            <div style="font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink-3);font-weight:400;margin-top:1px;">${s.zone}</div>
+          </div>
+        </div>
+        <p class="q-desc">${s.desc}</p>
+        <div class="q-pills">${s.pills.map(p=>`<span class="pill ${p.c}">${p.t}</span>`).join('')}</div>
+        <div class="q-tip">💡 ${s.tip}</div>
+      </div>`;
+    grid.appendChild(card);
+  });
+}
+
+function scrollToSection(id) {
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function scrollToCard(idx) {
+  const card = document.getElementById('card-' + idx);
+  if (!card) return;
+  card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  card.style.outline = '2px solid #c8959a';
+  card.style.outlineOffset = '3px';
+  setTimeout(() => { card.style.outline = ''; card.style.outlineOffset = ''; }, 2000);
+}
+
+function updateNav() {
+  const sections = ['map-section','quartiers-section','resto-section','practical-section'];
+  const btns = document.querySelectorAll('.snav-btn');
+  let active = 0;
+  sections.forEach((id, i) => {
+    const el = document.getElementById(id);
+    if (el && window.scrollY + 100 >= el.offsetTop) active = i;
+  });
+  btns.forEach((b, i) => b.classList.toggle('active', i === active));
+}
+
+window.addEventListener('scroll', updateNav, { passive: true });
+buildGrid();
+</script>
+</body>
+</html>
